@@ -37,9 +37,17 @@
                                 <input type="hidden" value="1" id="quantity" name="quantity">
                                 <div class="card-footer" style="background-color: white;">
                                     <div class="row">
-                                        <button class="btn btn-secondary btn-sm" class="tooltip-test" title="add to cart">
-                                            <i class="fa fa-shopping-cart"></i> Agregar al carro
-                                        </button>
+                                        <div class="col-sm">
+                                            <button class="btn btn-secondary btn-sm" class="tooltip-test" title="add to cart">
+                                                <i class="fa fa-shopping-cart"></i>
+                                            </button>
+                                        </div>
+                                        <div class="col-sm">
+                                            <a href="{{ url('product-name/'.$pro->slug) }}" class="btn btn-secondary btn-sm" class="tooltip-test" title="view details">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                        </div>
+
                                     </div>
                                 </div>
                             </form>

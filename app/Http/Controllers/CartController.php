@@ -53,4 +53,5 @@ class CartController extends Controller
         \Cart::clear();
         return redirect()->route('cart.index')->with('success_msg', 'Producto(s) eliminado(s)!');
     }
+
 }
