@@ -9,12 +9,12 @@ class CartController extends Controller
     public function shop()
     {
         $products = Product::all();
-        return \View::make('products.shop')->withTitle('E-COMMERCE STORE | SHOP')->with(['products' => $products]);
+        return \View::make('shop.shop')->withTitle('E-COMMERCE STORE | TIENDA')->with(['products' => $products]);
     }
 
     public function cart()  {
         $cartCollection = \Cart::getContent();
-        return \View::make('products.cart')->withTitle('E-COMMERCE STORE | CART')->with(['cartCollection' => $cartCollection]);;
+        return \View::make('shop.cart')->withTitle('E-COMMERCE STORE | CARRO')->with(['cartCollection' => $cartCollection]);
     }
     
     public function add(Request $request){

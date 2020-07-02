@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
     return view('welcome');
 });*/
 
+//las siguientes rutas pertenecen a las interfaces del cliente
 Route::get('/', 'CartController@shop')->name('shop');
 Route::get('/cart', 'CartController@cart')->name('cart.index');
 Route::post('/add', 'CartController@add')->name('cart.store');
@@ -28,3 +29,12 @@ Route::get('/product-name/{slug}', 'ProductController@show');
 
 Route::get('/checkout', 'CheckoutController@index');
 
+//las siguientes rutas pertenecen a las interfaces del administrador
+
+Route::resource('/admin/products', 'ProductController');
+Route::get('/admin/products/edit/{id}', 'ProductController@edit');
+Route::post('/admin/products/destroy/{id}', 'ProductController@destroy');
+
+Route::resource('/admin/users', 'UserController');
+Route::get('/admin/users/edit/{id}', 'UserController@edit');
+Route::post('/admin/users/destroy/{id}', 'UserController@destroy');

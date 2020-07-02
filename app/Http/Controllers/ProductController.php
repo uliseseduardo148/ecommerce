@@ -14,8 +14,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-    $productos = Product::all();
-      return view('products', compact('productos'));
+        $products = Product::orderBy('name', 'desc')->paginate(10);
+        return \View::make('admin.products.table')->with(['products' => $products]);
     }
 
     /**
@@ -25,7 +25,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return \View::make('admin.products.create');
     }
 
     /**
@@ -36,7 +36,34 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //Subir archivo
+        if ($request->hasFile('image_path')) {
+            //Nombre de archivo con extension
+            $fileNameWithExt = $request->file('image_path')->getClientOriginalName();
+            //Nombre de archivo sin extension
+            $fileName = pathInfo($fileNameWithExt, PATHINFO_FILENAME);
+            //Solo extension
+            $extension = $request->file('image_path')->getClientOriginalExtension();
+            //Nombre de archivo a guardar
+            $fileNameToStore = $fileName . '_' . time() . '.' . $extension;
+            //Subir archivo al servidor
+            $path = $request->file('image_path')->storeAs(
+                'public/images',
+                $fileNameToStore
+            );
+        } else {
+            $fileNameToStore = 'logo.png';
+        }
+
+        $product = new Product;
+        $product->name = $request->input('name');
+        $product->slug = $request->input('slug');
+        $product->description = $request->input('description');
+        $product->price = $request->input('price');
+        $product->image_path = $fileNameToStore;
+        $product->status = 1;
+        $product->save(); //Guarda los datos en BD
+        return redirect('/admin/products')->with('success_msg', 'Producto registrado');
     }
 
     /**
@@ -47,8 +74,8 @@ class ProductController extends Controller
      */
     public function show($slug)
     {
-        $product = Product::where('slug','=', $slug)->firstOrFail();
-        return \View::make('products.details', compact('product'));
+        $product = Product::where('slug', '=', $slug)->firstOrFail();
+        return \View::make('shop.details', compact('product'));
     }
 
     /**
@@ -59,7 +86,8 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        $product = Product::find($id);
+        return \View::make('admin.products.edit')->with(['product' => $product]);
     }
 
     /**
@@ -71,7 +99,34 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //Subir archivo
+        if ($request->hasFile('image_path')) {
+            //Nombre de archivo con extension
+            $fileNameWithExt = $request->file('image_path')->getClientOriginalName();
+            //Nombre de archivo sin extension
+            $fileName = pathInfo($fileNameWithExt, PATHINFO_FILENAME);
+            //Solo extension
+            $extension = $request->file('image_path')->getClientOriginalExtension();
+            //Nombre de archivo a guardar
+            $fileNameToStore = $fileName . '_' . time() . '.' . $extension;
+            //Subir archivo al servidor
+            $path = $request->file('image_path')->storeAs(
+                'public/images',
+                $fileNameToStore
+            );
+        } else {
+            $fileNameToStore = 'logo.png';
+        }
+
+        $product = Product::find($id);
+        $product->name = $request->input('name');
+        $product->slug = $request->input('slug');
+        $product->description = $request->input('description');
+        $product->price = $request->input('price');
+        $product->image_path = $fileNameToStore;
+        $product->status = $request->input('status');
+        $product->save(); //Guarda los datos en BD
+        return redirect('/admin/products')->with('success_msg', 'Datos actualizados');
     }
 
     /**
@@ -82,6 +137,7 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $product = Product::find($id)->delete();
+        return redirect('/admin/products')->with('success_msg', 'Registro eliminado correctamente');
     }
 }

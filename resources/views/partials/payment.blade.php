@@ -172,13 +172,7 @@
                     </form>
                 </div>
             </div>
-
-
         </div>
-
-
     </body>
-
-
 </div>
 @endsection
