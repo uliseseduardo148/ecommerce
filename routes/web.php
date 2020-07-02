@@ -25,16 +25,25 @@ Route::post('/update', 'CartController@update')->name('cart.update');
 Route::post('/remove', 'CartController@remove')->name('cart.remove');
 Route::post('/clear', 'CartController@clear')->name('cart.clear');
 
-Route::get('/product-name/{slug}', 'ProductController@show');
-
 Route::get('/checkout', 'CheckoutController@index');
 
+Route::get('/product-name/{slug}', 'ProductController@show');
+
+Route::get('/admin', 'Auth\LoginController@showLoginForm');
+
 //las siguientes rutas pertenecen a las interfaces del administrador
+Route::middleware(['auth'])->group(function () {
+    Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resource('/admin/products', 'ProductController');
-Route::get('/admin/products/edit/{id}', 'ProductController@edit');
-Route::post('/admin/products/destroy/{id}', 'ProductController@destroy');
+    Route::get('/admin/logout', 'Auth\LoginController@logout');
 
-Route::resource('/admin/users', 'UserController');
-Route::get('/admin/users/edit/{id}', 'UserController@edit');
-Route::post('/admin/users/destroy/{id}', 'UserController@destroy');
+    Route::resource('/admin/products', 'ProductController');
+    Route::get('/admin/products/edit/{id}', 'ProductController@edit');
+    Route::post('/admin/products/destroy/{id}', 'ProductController@destroy');
+
+    Route::resource('/admin/users', 'UserController');
+    Route::get('/admin/users/edit/{id}', 'UserController@edit');
+    Route::post('/admin/users/destroy/{id}', 'UserController@destroy');
+});
+
+Auth::routes();
