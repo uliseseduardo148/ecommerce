@@ -23,6 +23,10 @@
                     {{Form::label('password', 'Password')}}
                     <input type="password" name="password" id="password" class="form-control">
                 </div>
+                <div class="form-group">
+                    {{Form::label('re_password', 'Confirm password')}}
+                    <input type="password" name="re_password" id="re_password" class="form-control">
+                </div>
                 {{Form::submit('Guardar', ['class' => 'btn btn-primary'])}}
                 {!! Form::close() !!}
             </div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -39,7 +40,7 @@ class UserController extends Controller
         $user = new User;
         $user->name = $request->input('name');
         $user->email = $request->input('email');
-        $user->password = $request->input('password');
+        $user->password = Hash::make($request->input('password'));
         $user->save(); //Guarda los datos en BD
         return redirect('/admin/users')->with('success_msg', 'Registered user');
     }
@@ -65,7 +66,11 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = User::where('id', $id)->update($request->all());
+        $user = User::find($id);
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->password = Hash::make($request->input('password'));
+        $user->save(); //Guarda los datos en BD
         return redirect('/admin/users')->with('success_msg', 'Datos actualizados');
     }
 

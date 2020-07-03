@@ -35,7 +35,7 @@ Route::get('/admin', 'Auth\LoginController@showLoginForm');
 Route::middleware(['auth'])->group(function () {
     Route::get('/home', 'HomeController@index')->name('home');
 
-    Route::get('/admin/logout', 'Auth\LoginController@logout');
+    Route::get('/logout', 'Auth\LoginController@logout');
 
     Route::resource('/admin/products', 'ProductController');
     Route::get('/admin/products/edit/{id}', 'ProductController@edit');

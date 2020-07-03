@@ -124,7 +124,7 @@ class ProductController extends Controller
         $product->description = $request->input('description');
         $product->price = $request->input('price');
         $product->image_path = $fileNameToStore;
-        $product->status = $request->input('status');
+        $product->status = $request->input('status') ?: 1;
         $product->save(); //Guarda los datos en BD
         return redirect('/admin/products')->with('success_msg', 'Datos actualizados');
     }
