@@ -10,13 +10,13 @@ class CartController extends Controller
     public function shop()
     {
         $products = \DB::table('products')->where('status', 1)->paginate(10);
-        return \View::make('shop.shop')->withTitle('E-COMMERCE STORE | TIENDA')->with(['products' => $products]);
+        return \View::make('shop.shop')->withTitle('E-COMMERCE STORE | SHOP')->with(['products' => $products]);
     }
 
     public function cart()
     {
         $cartCollection = \Cart::getContent();
-        return \View::make('shop.cart')->withTitle('E-COMMERCE STORE | CARRO')->with(['cartCollection' => $cartCollection]);
+        return \View::make('shop.cart')->withTitle('E-COMMERCE STORE | SHOPPING CART')->with(['cartCollection' => $cartCollection]);
     }
 
     public function add(Request $request)
@@ -33,13 +33,13 @@ class CartController extends Controller
         ));
 
 
-        return redirect()->route('cart.index')->with('success_msg', 'Item gregado al carro de compras!');
+        return redirect()->route('cart.index')->with('success_msg', 'Item added to the shopping cart!');
     }
 
     public function remove(Request $request)
     {
         \Cart::remove($request->id);
-        return redirect()->route('cart.index')->with('success_msg', 'Item removido!');
+        return redirect()->route('cart.index')->with('success_msg', 'Item removed!');
     }
 
     public function update(Request $request)
@@ -53,12 +53,12 @@ class CartController extends Controller
                 ),
             )
         );
-        return redirect()->route('cart.index')->with('success_msg', 'Pedido actualizado!');
+        return redirect()->route('cart.index')->with('success_msg', 'Updated order!');
     }
 
     public function clear()
     {
         \Cart::clear();
-        return redirect()->route('cart.index')->with('success_msg', 'Producto(s) eliminado(s)!');
+        return redirect()->route('cart.index')->with('success_msg', 'Item(s) removed!');
     }
 }

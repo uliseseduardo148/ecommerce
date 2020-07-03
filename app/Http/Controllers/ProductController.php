@@ -2,11 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProductRequest;
 use App\Product;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+    protected $product;
+
+    public function __construct()
+    {
+        $this->product= new Product();
+    }
     /**
      * Display a listing of the resource.
      *
@@ -30,46 +37,32 @@ class ProductController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
+     * By default, the product is registered with status '1', that is, 'active'
+     * 
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
-        //Subir archivo
-        if ($request->hasFile('image_path')) {
-            //Nombre de archivo con extension
-            $fileNameWithExt = $request->file('image_path')->getClientOriginalName();
-            //Nombre de archivo sin extension
-            $fileName = pathInfo($fileNameWithExt, PATHINFO_FILENAME);
-            //Solo extension
-            $extension = $request->file('image_path')->getClientOriginalExtension();
-            //Nombre de archivo a guardar
-            $fileNameToStore = $fileName . '_' . time() . '.' . $extension;
-            //Subir archivo al servidor
-            $path = $request->file('image_path')->storeAs(
-                'public/images',
-                $fileNameToStore
-            );
-        } else {
-            $fileNameToStore = 'logo.png';
-        }
-
+        $validatedData = $request->validated();
+        //We get the image's name
+        $path = $this->product->uploadImage($request);
         $product = new Product;
-        $product->name = $request->input('name');
-        $product->slug = $request->input('slug');
-        $product->description = $request->input('description');
-        $product->price = $request->input('price');
-        $product->image_path = $fileNameToStore;
+        $product->name = $validatedData['name'];
+        $product->slug = $validatedData['slug'];
+        $product->description = $validatedData['description'];
+        $product->price = $validatedData['price'];
+        $product->image_path = $path;
         $product->status = 1;
-        $product->save(); //Guarda los datos en BD
-        return redirect('/admin/products')->with('success_msg', 'Producto registrado');
+        $product->save(); 
+        
+        return redirect('/admin/products')->with('success_msg', 'Product registered succesfully');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  String  $slug
      * @return \Illuminate\Http\Response
      */
     public function show($slug)
@@ -97,36 +90,22 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ProductRequest $request, $id)
     {
-        //Subir archivo
-        if ($request->hasFile('image_path')) {
-            //Nombre de archivo con extension
-            $fileNameWithExt = $request->file('image_path')->getClientOriginalName();
-            //Nombre de archivo sin extension
-            $fileName = pathInfo($fileNameWithExt, PATHINFO_FILENAME);
-            //Solo extension
-            $extension = $request->file('image_path')->getClientOriginalExtension();
-            //Nombre de archivo a guardar
-            $fileNameToStore = $fileName . '_' . time() . '.' . $extension;
-            //Subir archivo al servidor
-            $path = $request->file('image_path')->storeAs(
-                'public/images',
-                $fileNameToStore
-            );
-        } else {
-            $fileNameToStore = 'logo.png';
-        }
-
+        $validatedData = $request->validated();
         $product = Product::find($id);
-        $product->name = $request->input('name');
-        $product->slug = $request->input('slug');
-        $product->description = $request->input('description');
-        $product->price = $request->input('price');
-        $product->image_path = $fileNameToStore;
-        $product->status = $request->input('status') ?: 1;
-        $product->save(); //Guarda los datos en BD
-        return redirect('/admin/products')->with('success_msg', 'Datos actualizados');
+        //We check if the user has selected a new image, if not,
+        //we leave the image that was already assigned
+        $path = $this->product->uploadImage($request) ?: $product['image_path'] ;
+        $product->name = $validatedData['name'];
+        $product->slug = $validatedData['slug'];
+        $product->description = $validatedData['description'];
+        $product->price = $validatedData['price'];
+        $product->image_path = $path;
+        //We check if the user has disabled the visibility of the product in the client's index
+        $product->status = $request->input('status') ?: $product['status'];
+        $product->save(); 
+        return redirect('/admin/products')->with('success_msg', 'Product updated succesfully');
     }
 
     /**
@@ -138,6 +117,6 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $product = Product::find($id)->delete();
-        return redirect('/admin/products')->with('success_msg', 'Registro eliminado correctamente');
+        return redirect('/admin/products')->with('success_msg', 'Product deleted succesfully');
     }
 }

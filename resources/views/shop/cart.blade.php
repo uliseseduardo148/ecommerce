@@ -4,8 +4,8 @@
 <div class="container" style="margin-top: 80px">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/">Tienda</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Carro de compras</li>
+            <li class="breadcrumb-item"><a href="/">Shop</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Shopping cart</li>
         </ol>
     </nav>
 
@@ -13,10 +13,10 @@
         <div class="col-lg-7">
             <br>
             @if(\Cart::getTotalQuantity()>0)
-            <h4>{{ \Cart::getTotalQuantity()}} Producto(s) en el carro</h4><br>
+            <h4>{{ \Cart::getTotalQuantity()}} Product(s) in the car</h4><br>
             @else
-            <h4>No hay producto(s) en el carro</h4><br>
-            <a href="/" class="btn btn-dark">Continuar comprando</a>
+            <h4>There aren't products in the car</h4><br>
+            <a href="/" class="btn btn-dark">Continue shopping</a>
             @endif
 
             @foreach($cartCollection as $item)
@@ -27,9 +27,9 @@
                 <div class="col-lg-5">
                     <p>
                         <b><a href="/shop/{{ $item->attributes->slug }}">{{ $item->name }}</a></b><br>
-                        <b>Precio: </b>${{ $item->price }}<br>
+                        <b>Price: </b>${{ $item->price }}<br>
                         <b>Sub Total: </b>${{ \Cart::get($item->id)->getPriceSum() }}<br>
-                        {{-- <b>Descuento: </b>${{ \Cart::get($item->id)->getPriceSumWithConditions() }}--}}
+                        {{-- <b>Discount: </b>${{ \Cart::get($item->id)->getPriceSumWithConditions() }}--}}
                     </p>
                 </div>
                 <div class="col-lg-4">
@@ -55,7 +55,7 @@
             @if(count($cartCollection)>0)
             <form action="{{ route('cart.clear') }}" method="POST">
                 {{ csrf_field() }}
-                <button class="btn btn-secondary btn-md">Limpiar</button>
+                <button class="btn btn-secondary btn-md">Clear</button>
             </form>
             @endif
         </div>
@@ -66,8 +66,8 @@
                     <li class="list-group-item"><b>Total: </b>${{ \Cart::getTotal() }}</li>
                 </ul>
             </div>
-            <br><a href="/" class="btn btn-dark">Continuar comprando</a>
-            <a href="/checkout" class="btn btn-success">Proceder al pago</a>
+            <br><a href="/" class="btn btn-dark">Continue shopping</a>
+            <a href="/checkout" class="btn btn-success">Make payment</a>
         </div>
         @endif
     </div>

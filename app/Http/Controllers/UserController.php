@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
+use App\Product;
 use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Hash;
@@ -39,12 +40,10 @@ class UserController extends Controller
     public function store(UserRequest $request)
     {
         $validatedData = $request->validated();
-        $user = new User;
-        $user->name = $validatedData['name'];
-        $user->email = $validatedData['email'];
-        $user->password = Hash::make($validatedData['password']);
-        $user->save(); //Guarda los datos en BD
-        return redirect('/admin/users')->with('success_msg', 'Registered user');
+
+        $validatedData['password'] = Hash::make($request->input('password'));
+        $user = User::create($validatedData);
+        return redirect('/admin/users')->with('success_msg', 'User registered succesfully');
     }
 
     /**
@@ -69,13 +68,10 @@ class UserController extends Controller
     public function update(UserRequest $request, $id)
     {
         $validatedData = $request->validated();
+        $validatedData['password'] = Hash::make($request->input('password'));
         $user = User::find($id);
-        $user->name = $validatedData['name'];
-        $user->email = $validatedData['email'];
-        $user->password = Hash::make($validatedData['password']);
-        $user->save(); //Guarda los datos en BD
-
-        return redirect('/admin/users')->with('success_msg', 'Datos actualizados');
+        $user->update($validatedData);
+        return redirect('/admin/users')->with('success_msg', 'User updated succesfully');
     }
 
     /**
@@ -87,6 +83,6 @@ class UserController extends Controller
     public function destroy($id)
     {
         $user = User::find($id)->delete();
-        return redirect('/admin/users')->with('success_msg', 'Registro eliminado correctamente');
+        return redirect('/admin/users')->with('success_msg', 'User deleted succesfully');
     }
 }

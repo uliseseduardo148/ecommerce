@@ -12,29 +12,33 @@
                 {!! Form::open(['action' => ['ProductController@update', $product->id],'method' => 'PATCH', 'enctype'=> 'multipart/form-data']) !!}
 
                 <div class="form-group">
-                    {{Form::label('name', 'Nombre')}}
-                    {{Form::text('name', $product->name, ['class' => 'form-control'])}}
+                    {{Form::label('name', 'Name')}}
+                    {{Form::text('name', $product->name, ['class' => 'form-control','onkeyup'=> 'generateSlug(this.value)'])}}
                 </div>
                 <div class="form-group">
                     {{Form::label('slug', 'Slug')}}
-                    {{Form::text('slug', $product->slug, ['class' => 'form-control'])}}
+                    {{Form::text('slug', $product->slug, ['class' => 'form-control', 'readonly'])}}
                 </div>
                 <div class="form-group">
-                    {{Form::label('description', 'Descripción')}}
+                    {{Form::label('description', 'Description')}}
                     {{Form::textarea('description', $product->description, ['class' => 'form-control'])}}
                 </div>
                 <div class="form-group">
-                    {{Form::label('price', 'Precio')}}
+                    {{Form::label('price', 'Price')}}
                     {{Form::number('price', $product->price, ['class' => 'form-control'])}}
                 </div>
                 <div class="form-group">
                     {{Form::file('image_path')}}
                 </div>
                 <div class="form-group">
-                    {!! Form::checkbox('status', '0') !!}
-                    {!! Form::label('status', 'Marque para dejar inactivo') !!}
+                    @if($product->status==0)
+                    {!! Form::checkbox('status', '0',true) !!}
+                    @else
+                    {!! Form::checkbox('status', '0',false) !!}
+                    @endif
+                    {!! Form::label('status', 'Disable') !!}
                 </div>
-                {{Form::submit('Guardar', ['class' => 'btn btn-primary'])}}
+                {{Form::submit('Save', ['class' => 'btn btn-primary'])}}
                 {!! Form::close() !!}
             </div>
         </div>

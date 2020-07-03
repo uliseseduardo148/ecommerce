@@ -12,7 +12,7 @@
                 {!! Form::open(['action' => ['UserController@update', $user->id],'method' => 'PATCH']) !!}
 
                 <div class="form-group">
-                    {{Form::label('name', 'Nombre')}}
+                    {{Form::label('name', 'Name')}}
                     {{Form::text('name', $user->name, ['class' => 'form-control'])}}
                 </div>
                 <div class="form-group">
@@ -25,9 +25,9 @@
                 </div>
                 <div class="form-group">
                     {{Form::label('re_password', 'Confirm password')}}
-                    <input type="password" name="re_password" id="re_password" class="form-control">
+                    <input type="password" name="confirm_password" id="confirm_password" class="form-control">
                 </div>
-                {{Form::submit('Guardar', ['class' => 'btn btn-primary'])}}
+                {{Form::submit('Save', ['class' => 'btn btn-primary'])}}
                 {!! Form::close() !!}
             </div>
         </div>
