@@ -5,14 +5,14 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">Index</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Tienda</li>
+            <li class="breadcrumb-item active" aria-current="page">Shop</li>
         </ol>
     </nav>
     <div class="row justify-content-center">
         <div class="col-lg-12">
             <div class="row">
                 <div class="col-lg-7">
-                    <h4>Productos disponibles</h4>
+                    <h4>Products</h4>
                 </div>
             </div>
             <hr>
@@ -58,5 +58,6 @@
             </div>
         </div>
     </div>
+    {{$products->links()}}
 </div>
 @endsection

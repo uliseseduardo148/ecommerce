@@ -36,12 +36,12 @@
     <br>
     <div class="row" style="margin: 0px;">
         <a class="btn btn-dark btn-sm btn-block" href="{{ route('cart.index') }}">
-            Carro de compras <i class="fa fa-arrow-right"></i>
+            Shopping cart <i class="fa fa-arrow-right"></i>
         </a>
         <a class="btn btn-dark btn-sm btn-block" href="/checkout" >
-            Realizar pago <i class="fa fa-arrow-right"></i>
+            Make payment <i class="fa fa-arrow-right"></i>
         </a>
     </div>
 @else
-    <li class="list-group-item">El carrito está vacío</li>
+    <li class="list-group-item">The shopping cart it's empty</li>
 @endif

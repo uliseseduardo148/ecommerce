@@ -3,17 +3,17 @@
 @section('content')
 
 <div class="container" style="margin-top: 70px;">
-    <h2 style="text-align: center;">Productos registrados</h2>
-    <button type="button" class="btn btn-success pull-left" onclick="window.location='{{ url("admin/products/create") }}'">Agregar</button>
+    <h2 style="text-align: center;">Registered products</h2>
+    <button type="button" class="btn btn-success pull-left" onclick="window.location='{{ url("admin/products/create") }}'">Add product</button>
     <div class="table-responsive">
         <table class="table">
             <thead>
                 <tr>
-                    <th>Nombre</th>
+                    <th>Name</th>
                     <th>Slug</th>
-                    <th>Descripción</th>
-                    <th>Precio</th>
-                    <th>Ruta imagen</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Image</th>
                     <th></th>
                 </tr>
             </thead>
@@ -30,7 +30,7 @@
                         <div class='btn-group'>
                             <a href="{{ url('admin/products/edit/'.$pro->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-pencil"></i></a>
                             {!! Form::open(['action' => ['ProductController@destroy', $pro->id], 'method' => 'POST']) !!}
-                            {!! Form::button('<i class="fa fa-trash-o"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'onclick' => "return confirm('Desea eliminar el registro?')"]) !!}
+                            {!! Form::button('<i class="fa fa-trash-o"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'onclick' => "return confirm('are you sure to delete?')"]) !!}
                             {!! Form::close() !!}
                         </div>
                     </td>
@@ -38,6 +38,7 @@
                 @endforeach
             </tbody>
         </table>
+        {{$products->links()}}
     </div>
 </div>
 

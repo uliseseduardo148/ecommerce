@@ -4,8 +4,8 @@
 <div class="container" style="margin-top: 80px">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/">Tienda</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Carro de compras</li>
+            <li class="breadcrumb-item"><a href="/">Shop</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Shopping cart</li>
         </ol>
     </nav>
 
@@ -13,13 +13,13 @@
 
         <div class="container">
             <div class="py-5 text-center">
-                <h2>Concretar pago</h2>
+                <h2>Make paypemt</h2>
             </div>
 
             <div class="row">
                 <div class="col-md-4 order-md-2 mb-4">
                     <h4 class="d-flex justify-content-between align-items-center mb-3">
-                        <span class="text-muted">Tu compra</span>
+                        <span class="text-muted">Your cart</span>
                     </h4>
 
                     @foreach(\Cart::getContent() as $item)
@@ -51,84 +51,84 @@
                     <form class="needs-validation" novalidate>
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label for="firstName">Nombre(s)</label>
+                                <label for="firstName">Name(s)</label>
                                 <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
                                 <div class="invalid-feedback">
-                                    El nombre es requerido
+                                    Your name is required
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label for="lastName">Apellidos</label>
+                                <label for="lastName">Last name</label>
                                 <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
                                 <div class="invalid-feedback">
-                                    El apellido es requerido
+                                    Your last name is required
                                 </div>
                             </div>
                         </div>
 
 
                         <div class="mb-3">
-                            <label for="address">Dirección</label>
+                            <label for="address">Address</label>
                             <input type="text" class="form-control" id="address" placeholder="4a av..." required>
                             <div class="invalid-feedback">
-                                Por favor ingrese una dirección
+                                Your address is required
                             </div>
                         </div>
 
                         <div class="mb-3">
-                            <label for="address2">Segunda dirección <span class="text-muted">(Opcional)</span></label>
-                            <input type="text" class="form-control" id="address2" placeholder="Departamento, etc..">
+                            <label for="address2">Second address <span class="text-muted">(Optional)</span></label>
+                            <input type="text" class="form-control" id="address2" placeholder="Departament, etc..">
                         </div>
 
                         <div class="row">
                             <div class="col-md-5 mb-3">
-                                <label for="country">Ciudad</label>
+                                <label for="country">Country</label>
                                 <select class="custom-select d-block w-100" id="country" required>
-                                    <option value="">Seleccionar...</option>
+                                    <option value="">Choose...</option>
 
                                 </select>
                                 <div class="invalid-feedback">
-                                    Seleccione una opción
+                                    Select an option
                                 </div>
                             </div>
                             <div class="col-md-4 mb-3">
-                                <label for="state">Estado</label>
+                                <label for="state">State</label>
                                 <select class="custom-select d-block w-100" id="state" required>
-                                    <option value="">Seleccionar...</option>
+                                    <option value="">Choose...</option>
                                 </select>
                                 <div class="invalid-feedback">
-                                    Seleccione una opción
+                                    Select an option
                                 </div>
                             </div>
                             <div class="col-md-3 mb-3">
-                                <label for="zip">CP</label>
+                                <label for="zip">ZIP</label>
                                 <input type="text" class="form-control" id="zip" placeholder="" required>
                                 <div class="invalid-feedback">
-                                    Ingrese su CP
+                                    Enter your ZIP
                                 </div>
                             </div>
                         </div>
                         <hr class="mb-4">
                         <div class="custom-control custom-checkbox">
                             <input type="checkbox" class="custom-control-input" id="same-address">
-                            <label class="custom-control-label" for="same-address">La dirección de envío es la misma que mi dirección de facturación</label>
+                            <label class="custom-control-label" for="same-address">Shipping address is the same as my billing address</label>
                         </div>
                         <div class="custom-control custom-checkbox">
                             <input type="checkbox" class="custom-control-input" id="save-info">
-                            <label class="custom-control-label" for="save-info">Guardar mis datos</label>
+                            <label class="custom-control-label" for="save-info">Save this information for next time</label>
                         </div>
                         <hr class="mb-4">
 
-                        <h4 class="mb-3">Método de pago</h4>
+                        <h4 class="mb-3">Payment</h4>
 
                         <div class="d-block my-3">
                             <div class="custom-control custom-radio">
                                 <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked required>
-                                <label class="custom-control-label" for="credit">Tarjeta de crédito</label>
+                                <label class="custom-control-label" for="credit">Credit card</label>
                             </div>
                             <div class="custom-control custom-radio">
                                 <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required>
-                                <label class="custom-control-label" for="debit">Tarjeta de dédito</label>
+                                <label class="custom-control-label" for="debit">Debit card</label>
                             </div>
                             <div class="custom-control custom-radio">
                                 <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required>
@@ -137,38 +137,38 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label for="cc-name">Nombre en la tarjeta</label>
+                                <label for="cc-name">Name on card</label>
                                 <input type="text" class="form-control" id="cc-name" placeholder="" required>
                                 <div class="invalid-feedback">
-                                    El nombre es requerido
+                                    Required
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label for="cc-number">Número en la tarjeta</label>
+                                <label for="cc-number">Credit card number</label>
                                 <input type="text" class="form-control" id="cc-number" placeholder="" required>
                                 <div class="invalid-feedback">
-                                    Requerido
+                                    Required
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-3 mb-3">
-                                <label for="cc-expiration">Expiración</label>
+                                <label for="cc-expiration">Expiration</label>
                                 <input type="text" class="form-control" id="cc-expiration" placeholder="" required>
                                 <div class="invalid-feedback">
-                                    Requerido
+                                    Required
                                 </div>
                             </div>
                             <div class="col-md-3 mb-3">
                                 <label for="cc-expiration">CVV</label>
                                 <input type="text" class="form-control" id="cc-cvv" placeholder="" required>
                                 <div class="invalid-feedback">
-                                    Ingrese los 3 dígitos
+                                    Enter 3 digits
                                 </div>
                             </div>
                         </div>
                         <hr class="mb-4">
-                        <button class="btn btn-primary btn-lg btn-block" type="submit">Continuar</button>
+                        <button class="btn btn-primary btn-lg btn-block" type="submit">Continue</button>
                     </form>
                 </div>
             </div>
