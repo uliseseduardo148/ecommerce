@@ -28,7 +28,6 @@ class UserRequest extends FormRequest
             'email' => 'required|email|max:50',
             'password' => 'required|string|min:8|max:100',
             'confirm_password' => 'required|same:password',
-            'status' => 'numeric',
         ];
 
     }

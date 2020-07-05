@@ -103,7 +103,7 @@ class ProductController extends Controller
         $product->price = $validatedData['price'];
         $product->image_path = $path;
         //We check if the user has disabled the visibility of the product in the client's index
-        $product->status = $request->input('status') ?: $product['status'];
+        $request->input('status')? $product->status=0 : $product->status=1;
         $product->save(); 
         return redirect('/admin/products')->with('success_msg', 'Product updated succesfully');
     }

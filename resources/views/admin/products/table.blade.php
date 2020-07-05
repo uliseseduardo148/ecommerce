@@ -14,6 +14,7 @@
                     <th>Description</th>
                     <th>Price</th>
                     <th>Image</th>
+                    <th>Visible in shop</th>
                     <th></th>
                 </tr>
             </thead>
@@ -25,7 +26,8 @@
                     <td>{{ $pro->slug }}</td>
                     <td>{{ $pro->description }}</td>
                     <td>{{ $pro->price }}</td>
-                    <td>{{ $pro->image_path }}</td>
+                    <td><img src="/images/{{ $pro->image_path }}" class="card-img-top mx-auto" style="height: 40px; width: 40px;display: block;" alt="{{ $pro->image_path }}"></td>
+                    <td>{{ $pro->status ? 'Y' : 'N' }}</td>
                     <td>
                         <div class='btn-group'>
                             <a href="{{ url('admin/products/edit/'.$pro->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-pencil"></i></a>

@@ -32,9 +32,9 @@
                 </div>
                 <div class="form-group">
                     @if($product->status==0)
-                    {!! Form::checkbox('status', '0',true) !!}
+                    {!! Form::checkbox('status',null,true) !!}
                     @else
-                    {!! Form::checkbox('status', '0',false) !!}
+                    {!! Form::checkbox('status',null,false) !!}
                     @endif
                     {!! Form::label('status', 'Disable') !!}
                 </div>
